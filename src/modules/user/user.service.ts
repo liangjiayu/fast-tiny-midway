@@ -3,14 +3,19 @@ import { InjectEntityModel } from '@midwayjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
+import { UserQueryDto } from './dto/query.dto';
 
 @Provide()
 export class UserService {
   @InjectEntityModel(UserEntity)
   userEntityModel: Repository<UserEntity>;
 
-  async list() {
-    return await this.userEntityModel.find();
+  async list(query: UserQueryDto) {
+    const [records, total] = await this.userEntityModel.findAndCount({
+      skip: (query.pageNum - 1) * query.pageSize,
+      take: query.pageSize,
+    });
+    return { records, total };
   }
 
   /**

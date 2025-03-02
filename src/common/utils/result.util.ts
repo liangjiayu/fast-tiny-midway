@@ -1,3 +1,5 @@
+import { ApiProperty, Type } from '@midwayjs/swagger';
+
 export const ResultCode = {
   SUCCESS: { code: 200, message: '操作成功' },
   FAILED: { code: 500, message: '操作失败' },
@@ -9,8 +11,11 @@ type ResultCodeType = keyof typeof ResultCode;
  * 通用返回结果
  */
 export class CommonResult<T> {
+  @ApiProperty({ description: '状态码', default: 200 })
   code: number;
+  @ApiProperty({ description: '消息', default: '操作成功' })
   message: string;
+  @ApiProperty({ description: '结果主体', default: null })
   data: T;
 
   constructor(code: number, message: string, data: T) {
@@ -80,4 +85,21 @@ export class CommonResult<T> {
 
     throw new Error('Invalid failed parameters');
   }
+}
+
+export function SuccessWrapper<T>(ResourceCls: Type<T>) {
+  class Successed {
+    @ApiProperty({ description: '状态码', default: 200 })
+    code: number;
+
+    @ApiProperty({ description: '消息', default: '操作成功' })
+    message: string;
+
+    @ApiProperty({
+      type: ResourceCls,
+    })
+    data: T;
+  }
+
+  return Successed;
 }

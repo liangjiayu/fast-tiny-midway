@@ -25,4 +25,11 @@ export default {
       },
     },
   },
+  /**
+   * @See https://midwayjs.org/docs/extensions/swagger
+   */
+  swagger: {
+    title: 'Fast-Tiny-Api',
+    description: 'This is a swagger-ui for Fast-Tiny-Api project',
+  },
 } as MidwayConfig;
