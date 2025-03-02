@@ -7,12 +7,14 @@ import { join } from 'path';
 // import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
 import * as orm from '@midwayjs/typeorm';
+import * as swagger from '@midwayjs/swagger';
 
 @Configuration({
   imports: [
     koa,
     validate,
     orm,
+    swagger,
     {
       component: info,
       enabledEnvironment: ['local'],
