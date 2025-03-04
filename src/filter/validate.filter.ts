@@ -1,10 +1,11 @@
 import { Catch } from '@midwayjs/core';
 import { MidwayValidationError } from '@midwayjs/validate';
-import { CommonResult } from '@/common/utils/result.util';
+import { BaseResult } from '@/common/response/base-result';
+import { ErrorCodeEnum } from '@/common/response/error-code';
 
 @Catch(MidwayValidationError)
 export class ValidateErrorFilter {
   async catch(err: MidwayValidationError) {
-    return CommonResult.failed(422, err.message);
+    return new BaseResult(ErrorCodeEnum.VALIDATE_ERROR, err.message, null);
   }
 }

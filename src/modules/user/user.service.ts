@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserQueryDto } from './dto/query.dto';
+import { CustomError } from '@/common/response/custom-error';
 
 @Provide()
 export class UserService {
@@ -21,11 +22,22 @@ export class UserService {
   /**
    * 创建用户
    */
-  async create(userCreateDto: UserCreateDto) {
+  async create(userCreateDto: UserCreateDto): Promise<number> {
     const record = new UserEntity();
-    record.username = userCreateDto.username;
-    record.password = userCreateDto.password;
 
+    // 检查用户名是否已存在
+    const usernameCount = await this.userEntityModel.findOne({
+      where: {
+        username: userCreateDto.username,
+      },
+      select: ['id', 'username'],
+    });
+    if (usernameCount) {
+      throw new CustomError('用户名已存在!');
+      // throw new Error('用户名已存在!');
+    }
+
+    this.userEntityModel.merge(record, userCreateDto);
     await this.userEntityModel.save(record);
     return record.id;
   }
@@ -33,21 +45,30 @@ export class UserService {
   /**
    * 更新用户
    */
-  async update(id: number, userUpdateDto: UserUpdateDto) {
+  async update(id: number, userUpdateDto: UserUpdateDto): Promise<boolean> {
     const record = await this.userEntityModel.findOne({
       where: {
         id: id,
       },
     });
+    if (!record) {
+      throw new Error('用户不存在!');
+    }
+
     this.userEntityModel.merge(record, userUpdateDto);
-    return await this.userEntityModel.save(record);
+    const result = await this.userEntityModel.save(record);
+    return !!result;
   }
 
   /**
    * 删除用户
    */
-  async delete(id: number) {
-    return await this.userEntityModel.softDelete(id);
+  async delete(id: number): Promise<boolean> {
+    const result = await this.userEntityModel.delete(id);
+    if (result?.affected === 0) {
+      throw new Error('用户不存在!');
+    }
+    return true;
   }
 
   /**

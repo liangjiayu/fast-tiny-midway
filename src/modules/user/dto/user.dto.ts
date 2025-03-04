@@ -3,11 +3,23 @@ import { Rule, RuleType } from '@midwayjs/validate';
 
 export class UserCreateDto {
   @ApiProperty({ description: '用户名，唯一' })
-  @Rule(RuleType.string().required())
+  @Rule(
+    RuleType.string()
+      .required()
+      .error(new Error('用户名不能为空'))
+      .pattern(/^[A-Za-z0-9]{6,20}$/)
+      .error(new Error('用户名必须是6-20位字母或数字'))
+  )
   username: string;
 
   @ApiProperty({ description: '用户密码' })
-  @Rule(RuleType.string().required())
+  @Rule(
+    RuleType.string()
+      .required()
+      .error(new Error('密码不能为空'))
+      .pattern(/^[A-Za-z0-9]{6,20}$/)
+      .error(new Error('密码必须是6-20位字母或数字'))
+  )
   password: string;
 }
 

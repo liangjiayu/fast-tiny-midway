@@ -9,6 +9,8 @@ import { ValidateErrorFilter } from './filter/validate.filter';
 // import { ReportMiddleware } from './middleware/report.middleware';
 import * as orm from '@midwayjs/typeorm';
 import * as swagger from '@midwayjs/swagger';
+import { FormatMiddleware } from './middleware/format.middleware';
+import { CustomErrorFilter } from './filter/custom.filter';
 
 @Configuration({
   imports: [
@@ -29,11 +31,12 @@ export class MainConfiguration {
 
   async onReady() {
     // add middleware
-    // this.app.useMiddleware([ReportMiddleware]);
+    this.app.useMiddleware([FormatMiddleware]);
     // add filter
     this.app.useFilter([
       NotFoundFilter,
       ValidateErrorFilter,
+      CustomErrorFilter,
       DefaultErrorFilter,
     ]);
   }

@@ -36,17 +36,17 @@ export class UserController {
   })
   async list(@Query() query: UserQueryDto) {
     const records = await this.userService.list(query);
-    return CommonResult.success(records);
+    return records;
   }
 
   @Post('/create')
-  @ApiOperation({ summary: '创建用户，返回用户id' })
+  @ApiOperation({ summary: '创建用户,返回用户id' })
   @ApiOkResponse({
     type: CommonResult,
   })
   async create(@Body() body: UserCreateDto) {
     const result = await this.userService.create(body);
-    return CommonResult.success(result);
+    return result;
   }
 
   @Post('/update/:id')
@@ -57,7 +57,7 @@ export class UserController {
   })
   async update(@Param('id') id: number, @Body() body: UserUpdateDto) {
     const result = await this.userService.update(id, body);
-    return CommonResult.success(result);
+    return result;
   }
 
   @Post('/delete/:id')
@@ -68,7 +68,7 @@ export class UserController {
   })
   async delete(@Param('id') id: number) {
     const result = await this.userService.delete(id);
-    return CommonResult.success(result);
+    return result;
   }
 
   @Get('/:id')
@@ -79,6 +79,6 @@ export class UserController {
   })
   async details(@Param('id') id: number) {
     const result = await this.userService.details(id);
-    return CommonResult.success(result);
+    return result;
   }
 }
