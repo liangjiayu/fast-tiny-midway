@@ -1,5 +1,5 @@
 import { MidwayError } from '@midwayjs/core';
-import { CustomErrorEnum } from './error-code';
+import { CustomErrorEnum } from '@/constants/error-code';
 
 export class CustomError extends MidwayError {
   constructor(message: string, code?: string) {

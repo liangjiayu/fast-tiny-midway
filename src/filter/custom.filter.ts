@@ -1,7 +1,7 @@
 import { CustomError } from '@/common/response/custom-error';
 import { Catch } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
-import { ErrorCodeEnum } from '@/common/response/error-code';
+import { ErrorCodeEnum } from '@/constants/error-code';
 import { BaseResult } from '@/common/response/base-result';
 
 @Catch(CustomError)

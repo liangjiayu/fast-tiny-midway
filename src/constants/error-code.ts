@@ -12,4 +12,4 @@ export const ErrorCodeMap = {
   [ErrorCodeEnum.VALIDATE_ERROR]: '参数验证错误',
 };
 
-export const CustomErrorEnum = registerErrorCode('CUSTOM', ErrorCodeEnum);
+export const CustomErrorEnum = registerErrorCode('custom', ErrorCodeEnum);

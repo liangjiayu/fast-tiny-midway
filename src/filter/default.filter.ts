@@ -1,5 +1,5 @@
 import { BaseResult } from '@/common/response/base-result';
-import { ErrorCodeEnum } from '@/common/response/error-code';
+import { ErrorCodeEnum } from '@/constants/error-code';
 import { Catch } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 

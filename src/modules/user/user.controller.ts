@@ -17,8 +17,9 @@ import {
   ApiTags,
   ApiOkResponse,
 } from '@midwayjs/swagger';
-import { UserEntityResult } from './user.entity';
+import { UserEntity, UserEntityResult } from './user.entity';
 import { UserQueryDto } from './dto/query.dto';
+import { wrapResponse } from '@/common/response/wrap-response';
 
 @ApiTags('SysUsersTag')
 @Controller('/api/sys_users')
@@ -32,7 +33,7 @@ export class UserController {
   @Get('/list')
   @ApiOperation({ summary: '获取用户列表' })
   @ApiOkResponse({
-    type: CommonResult,
+    type: wrapResponse({ type: UserEntity }),
   })
   async list(@Query() query: UserQueryDto) {
     const records = await this.userService.list(query);

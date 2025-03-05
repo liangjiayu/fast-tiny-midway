@@ -1,7 +1,7 @@
 import { Catch } from '@midwayjs/core';
 import { MidwayValidationError } from '@midwayjs/validate';
 import { BaseResult } from '@/common/response/base-result';
-import { ErrorCodeEnum } from '@/common/response/error-code';
+import { ErrorCodeEnum } from '@/constants/error-code';
 
 @Catch(MidwayValidationError)
 export class ValidateErrorFilter {
