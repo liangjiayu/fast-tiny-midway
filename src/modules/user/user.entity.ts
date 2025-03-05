@@ -1,4 +1,3 @@
-import { SuccessWrapper } from '@/common/utils/result.util';
 import { ApiProperty } from '@midwayjs/swagger';
 import {
   Entity,
@@ -73,4 +72,12 @@ export class UserEntity {
   deletedAt: Date;
 }
 
-export class UserEntityResult extends SuccessWrapper(UserEntity) {}
+export class TagEntity {
+  @ApiProperty({ description: 'id' })
+  id: number;
+
+  @ApiProperty({ description: '标签名称' })
+  tagName: string;
+  @ApiProperty({ description: '标签数值' })
+  tagValue: string;
+}

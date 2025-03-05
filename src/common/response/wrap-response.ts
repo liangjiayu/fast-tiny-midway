@@ -1,13 +1,13 @@
-import { ApiProperty, ApiResponseMetadata } from '@midwayjs/swagger';
+import { ApiProperty, ApiResponseMetadata, Type } from '@midwayjs/swagger';
 import { BaseResponse, PaginationInfo } from '../dto/base-response.dto';
 
 type WrapResponseOptions = ApiResponseMetadata & {
-  struct?: 'list' | 'page';
+  type?: Type;
+  struct?: 'List' | 'Page';
 };
 
 /**
- * 用于 Swagger文档响应体，包装统一响应结构
- * @param options 支持 struct: 'list' | 'page'
+ * 用于 Swagger文档 响应体定义，生成统一响应结构
  */
 export const wrapResponse = <T>(options?: WrapResponseOptions) => {
   // 默认返回 BaseResponse
@@ -17,9 +17,35 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
 
   let wrapDataType = options.type;
 
+  /**
+   * 生成 swagger类型名称
+   */
+  function defineSchemaName(
+    o: any,
+    type: WrapResponseOptions['type'],
+    struct?: WrapResponseOptions['struct']
+  ): void {
+    const typeName = ((): string => {
+      if (typeof type === 'string') {
+        return type;
+      } else if (type instanceof Array) {
+        return type[0].name;
+      } else {
+        return type.name;
+      }
+    })();
+
+    const name = struct ? `${typeName}${struct}` : typeName;
+
+    Object.defineProperty(o, 'name', {
+      writable: true,
+      value: `BaseResponse<${name}>`,
+    });
+  }
+
   switch (options.struct) {
     // 返回列表结构
-    case 'list':
+    case 'List':
       class ResponseListDataWrap {
         @ApiProperty({ type: wrapDataType, isArray: true })
         records: T[];
@@ -29,7 +55,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
       break;
 
     // 返回分页结构
-    case 'page':
+    case 'Page':
       class ResponsePageDataWrap extends PaginationInfo<T> {
         @ApiProperty({ type: wrapDataType, isArray: true })
         records: T[];
@@ -45,5 +71,6 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
     data: T;
   }
 
+  defineSchemaName(BaseResponseWrap, options.type, options.struct);
   return BaseResponseWrap;
 };

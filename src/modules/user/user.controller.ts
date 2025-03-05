@@ -10,14 +10,13 @@ import {
 import { Context } from '@midwayjs/koa';
 import { UserService } from './user.service';
 import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
-import { CommonResult } from '@/common/utils/result.util';
 import {
   ApiOperation,
   ApiParam,
   ApiTags,
   ApiOkResponse,
 } from '@midwayjs/swagger';
-import { UserEntity, UserEntityResult } from './user.entity';
+import { UserEntity } from './user.entity';
 import { UserQueryDto } from './dto/query.dto';
 import { wrapResponse } from '@/common/response/wrap-response';
 
@@ -33,7 +32,7 @@ export class UserController {
   @Get('/list')
   @ApiOperation({ summary: '获取用户列表' })
   @ApiOkResponse({
-    type: wrapResponse({ type: UserEntity }),
+    type: wrapResponse({ type: UserEntity, struct: 'Page' }),
   })
   async list(@Query() query: UserQueryDto) {
     const records = await this.userService.list(query);
@@ -43,7 +42,7 @@ export class UserController {
   @Post('/create')
   @ApiOperation({ summary: '创建用户,返回用户id' })
   @ApiOkResponse({
-    type: CommonResult,
+    type: wrapResponse({ type: Number }),
   })
   async create(@Body() body: UserCreateDto) {
     const result = await this.userService.create(body);
@@ -54,7 +53,7 @@ export class UserController {
   @ApiOperation({ summary: '更新用户' })
   @ApiParam({ name: 'id', description: '用户id' })
   @ApiOkResponse({
-    type: CommonResult,
+    type: wrapResponse({ type: Boolean }),
   })
   async update(@Param('id') id: number, @Body() body: UserUpdateDto) {
     const result = await this.userService.update(id, body);
@@ -65,7 +64,7 @@ export class UserController {
   @ApiOperation({ summary: '删除用户' })
   @ApiParam({ name: 'id', description: '用户id' })
   @ApiOkResponse({
-    type: CommonResult,
+    type: wrapResponse({ type: Boolean }),
   })
   async delete(@Param('id') id: number) {
     const result = await this.userService.delete(id);
@@ -76,7 +75,7 @@ export class UserController {
   @ApiOperation({ summary: '获取用户详情' })
   @ApiParam({ name: 'id', description: '用户id' })
   @ApiOkResponse({
-    type: UserEntityResult,
+    type: wrapResponse({ type: UserEntity }),
   })
   async details(@Param('id') id: number) {
     const result = await this.userService.details(id);
