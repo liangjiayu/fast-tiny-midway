@@ -24,16 +24,16 @@ export class PaginationInfo<T> {
 
 export class BaseResponse<T> {
   @ApiProperty({
-    default: RESPONSE_SUCCESS_MESSAGE,
-    description: '消息主体',
-  })
-  message: string;
-
-  @ApiProperty({
     default: RESPONSE_SUCCESS_CODE,
     description: '状态码',
   })
   code: number;
+
+  @ApiProperty({
+    default: RESPONSE_SUCCESS_MESSAGE,
+    description: '消息主体',
+  })
+  message: string;
 
   @ApiProperty({
     description: '数据主体',
