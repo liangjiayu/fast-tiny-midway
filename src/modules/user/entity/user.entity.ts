@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
+import { UsersMetaData } from './usersMeta.entity';
 
 @Entity('sys_users')
 export class UserEntity {
@@ -50,35 +51,28 @@ export class UserEntity {
   @ApiProperty({ description: '用户简介' })
   profileDescription: string;
 
-  @Column()
-  @ApiProperty({ description: '元信息' })
-  metadata: string;
+  @Column('simple-json')
+  @ApiProperty({ description: '元信息', type: UsersMetaData })
+  metadata: UsersMetaData;
 
   @CreateDateColumn({
     name: 'created_at',
+    type: 'timestamp',
   })
   @ApiProperty({ description: '创建时间' })
-  createdAt: Date;
+  createdAt: string;
 
   @UpdateDateColumn({
     name: 'updated_at',
+    type: 'timestamp',
   })
   @ApiProperty({ description: '更新时间' })
-  updatedAt: Date;
+  updatedAt: string;
 
   @DeleteDateColumn({
     name: 'deleted_at',
+    type: 'timestamp',
   })
   @ApiProperty({ description: '逻辑删除时间' })
-  deletedAt: Date;
-}
-
-export class TagEntity {
-  @ApiProperty({ description: 'id' })
-  id: number;
-
-  @ApiProperty({ description: '标签名称' })
-  tagName: string;
-  @ApiProperty({ description: '标签数值' })
-  tagValue: string;
+  deletedAt: string;
 }

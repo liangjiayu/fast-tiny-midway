@@ -16,7 +16,7 @@ import {
   ApiTags,
   ApiOkResponse,
 } from '@midwayjs/swagger';
-import { UserEntity } from './user.entity';
+import { UserEntity } from './entity/user.entity';
 import { UserQueryDto } from './dto/query.dto';
 import { wrapResponse } from '@/common/response/wrap-response';
 @ApiTags('SysUsersTag')

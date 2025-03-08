@@ -31,11 +31,11 @@ export class UserQueryDto extends BasePagesDto {
     description: '开始时间，格式为yyyy-MM-dd HH:mm:ss',
     example: '2025-01-01 10:00:00',
   })
-  startTime: Date;
+  startTime: string;
 
   @ApiProperty({
     description: '结束时间，格式为yyyy-MM-dd HH:mm:ss',
     example: '2030-02-01 18:00:00',
   })
-  endTime: Date;
+  endTime: string;
 }

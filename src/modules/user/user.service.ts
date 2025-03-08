@@ -9,7 +9,7 @@ import {
   Between,
   In,
 } from 'typeorm';
-import { UserEntity } from './user.entity';
+import { UserEntity } from './entity/user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserQueryDto } from './dto/query.dto';
 import { CustomError } from '@/common/response/custom-error';
@@ -99,10 +99,16 @@ export class UserService {
       },
     });
     if (!record) {
-      throw new Error('用户不存在!');
+      throw new CustomError('用户不存在!');
     }
 
+    // metadata信息局部更新，防止覆盖
+    if (userUpdateDto.metadata) {
+      record.metadata = { ...record.metadata, ...userUpdateDto.metadata };
+      delete userUpdateDto.metadata;
+    }
     this.userEntityModel.merge(record, userUpdateDto);
+
     const result = await this.userEntityModel.save(record);
     return !!result;
   }
@@ -113,7 +119,7 @@ export class UserService {
   async delete(id: number): Promise<boolean> {
     const result = await this.userEntityModel.delete(id);
     if (result?.affected === 0) {
-      throw new Error('用户不存在!');
+      throw new CustomError('用户不存在!');
     }
     return true;
   }

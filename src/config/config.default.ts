@@ -22,6 +22,7 @@ export default {
         logging: false,
         // 支持如下的扫描形式，为了兼容我们可以同时进行.js和.ts匹配
         entities: ['**/*.entity.{j,t}s'],
+        dateStrings: true, // 时间列返回字符串
       },
     },
   },
