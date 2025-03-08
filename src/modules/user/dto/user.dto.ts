@@ -2,23 +2,24 @@ import { ApiProperty } from '@midwayjs/swagger';
 import { Rule, RuleType } from '@midwayjs/validate';
 
 export class UserCreateDto {
-  @ApiProperty({ description: '用户名，唯一' })
+  @ApiProperty({
+    description: '用户名，唯一',
+    required: true,
+  })
   @Rule(
     RuleType.string()
       .required()
-      .error(new Error('用户名不能为空'))
       .pattern(/^[A-Za-z0-9]{6,20}$/)
-      .error(new Error('用户名必须是6-20位字母或数字'))
+      .message('用户名必须是6-20位字母或数字')
   )
   username: string;
 
-  @ApiProperty({ description: '用户密码' })
+  @ApiProperty({ description: '用户密码', required: true })
   @Rule(
     RuleType.string()
       .required()
-      .error(new Error('密码不能为空'))
       .pattern(/^[A-Za-z0-9]{6,20}$/)
-      .error(new Error('密码必须是6-20位字母或数字'))
+      .message('密码必须是6-20位字母或数字')
   )
   password: string;
 }

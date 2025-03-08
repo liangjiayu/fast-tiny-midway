@@ -1,5 +1,5 @@
 import { ApiProperty, ApiResponseMetadata, Type } from '@midwayjs/swagger';
-import { BaseResponse, PaginationInfo } from '../dto/base-response.dto';
+import { BaseResponse, BasePagination } from './base-response';
 
 type WrapResponseOptions = ApiResponseMetadata & {
   type?: Type;
@@ -56,7 +56,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
 
     // 返回分页结构
     case 'Page':
-      class ResponsePageDataWrap extends PaginationInfo<T> {
+      class ResponsePageDataWrap extends BasePagination<T> {
         @ApiProperty({ type: wrapDataType, isArray: true })
         records: T[];
       }

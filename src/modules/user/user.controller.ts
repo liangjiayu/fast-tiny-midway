@@ -19,7 +19,6 @@ import {
 import { UserEntity } from './user.entity';
 import { UserQueryDto } from './dto/query.dto';
 import { wrapResponse } from '@/common/response/wrap-response';
-
 @ApiTags('SysUsersTag')
 @Controller('/api/sys_users')
 export class UserController {
@@ -29,16 +28,6 @@ export class UserController {
   @Inject()
   userService: UserService;
 
-  @Get('/list')
-  @ApiOperation({ summary: '获取用户列表' })
-  @ApiOkResponse({
-    type: wrapResponse({ type: UserEntity, struct: 'Page' }),
-  })
-  async list(@Query() query: UserQueryDto) {
-    const records = await this.userService.list(query);
-    return records;
-  }
-
   @Post('/create')
   @ApiOperation({ summary: '创建用户,返回用户id' })
   @ApiOkResponse({
@@ -47,6 +36,16 @@ export class UserController {
   async create(@Body() body: UserCreateDto) {
     const result = await this.userService.create(body);
     return result;
+  }
+
+  @Get('/list')
+  @ApiOperation({ summary: '获取用户列表' })
+  @ApiOkResponse({
+    type: wrapResponse({ type: UserEntity, struct: 'Page' }),
+  })
+  async list(@Query() query: UserQueryDto) {
+    const records = await this.userService.list(query);
+    return records;
   }
 
   @Post('/update/:id')
@@ -62,7 +61,7 @@ export class UserController {
 
   @Post('/delete/:id')
   @ApiOperation({ summary: '删除用户' })
-  @ApiParam({ name: 'id', description: '用户id' })
+  @ApiParam({ name: 'id', description: '用户id', type: Number })
   @ApiOkResponse({
     type: wrapResponse({ type: Boolean }),
   })
@@ -73,7 +72,7 @@ export class UserController {
 
   @Get('/:id')
   @ApiOperation({ summary: '获取用户详情' })
-  @ApiParam({ name: 'id', description: '用户id' })
+  @ApiParam({ name: 'id', description: '用户id', type: Number })
   @ApiOkResponse({
     type: wrapResponse({ type: UserEntity }),
   })

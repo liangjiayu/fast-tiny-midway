@@ -50,8 +50,9 @@ export class UserEntity {
   @ApiProperty({ description: '用户简介' })
   profileDescription: string;
 
-  // @Column()
-  // metadata: string;
+  @Column()
+  @ApiProperty({ description: '元信息' })
+  metadata: string;
 
   @CreateDateColumn({
     name: 'created_at',

@@ -33,12 +33,18 @@ export default {
     description: 'This is a swagger-ui for Fast-Tiny-Api project',
     displayOptions: {
       // 根据接口的类型排序
-      // operationsSorter: (a, b) => {
-      //   const methodOrder = ['post', 'get', 'put', 'delete'];
-      //   const methodA = a['_root']['entries'][1][1].toLowerCase(); // 获取接口的具体的 method类型
-      //   const methodB = b['_root']['entries'][1][1].toLowerCase();
-      //   return methodOrder.indexOf(methodA) - methodOrder.indexOf(methodB);
-      // },
+      operationsSorter: (a, b) => {
+        const methodOrder = ['post', 'get', 'put', 'delete'];
+        const methodA = a['_root']['entries'][1][1].toLowerCase(); // 获取接口的具体的 method类型（a）
+        const methodB = b['_root']['entries'][1][1].toLowerCase(); // 获取接口的具体的 method类型（b）
+        return methodOrder.indexOf(methodA) - methodOrder.indexOf(methodB);
+      },
+    },
+  },
+
+  validate: {
+    validationOptions: {
+      allowUnknown: true,
     },
   },
 } as MidwayConfig;

@@ -6,7 +6,6 @@ import { join } from 'path';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { NotFoundFilter } from './filter/notfound.filter';
 import { ValidateErrorFilter } from './filter/validate.filter';
-// import { ReportMiddleware } from './middleware/report.middleware';
 import * as orm from '@midwayjs/typeorm';
 import * as swagger from '@midwayjs/swagger';
 import { FormatMiddleware } from './middleware/format.middleware';
