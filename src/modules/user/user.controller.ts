@@ -19,6 +19,9 @@ import {
 import { UserEntity } from './entity/user.entity';
 import { UserQueryDto } from './dto/query.dto';
 import { wrapResponse } from '@/common/response/wrap-response';
+import { UserUpdateSchema } from './user.validate';
+import { zodValidate } from '@/common/utils/zod.validate';
+
 @ApiTags('SysUsersTag')
 @Controller('/api/sys_users')
 export class UserController {
@@ -55,6 +58,7 @@ export class UserController {
     type: wrapResponse({ type: Boolean }),
   })
   async update(@Param('id') id: number, @Body() body: UserUpdateDto) {
+    zodValidate(UserUpdateSchema, body);
     const result = await this.userService.update(id, body);
     return result;
   }
