@@ -105,8 +105,10 @@ export class UserService {
     // metadata信息局部更新，防止覆盖
     if (userUpdateDto.metadata) {
       record.metadata = { ...record.metadata, ...userUpdateDto.metadata };
-      delete userUpdateDto.metadata;
+      // @ts-ignore
+      userUpdateDto.metadata = undefined;
     }
+
     this.userEntityModel.merge(record, userUpdateDto);
 
     const result = await this.userEntityModel.save(record);
@@ -133,6 +135,9 @@ export class UserService {
         id: id,
       },
     });
+    if (!record) {
+      throw new CustomError('用户不存在!');
+    }
     return record;
   }
 }

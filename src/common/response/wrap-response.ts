@@ -31,7 +31,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
       } else if (type instanceof Array) {
         return type[0].name;
       } else {
-        return type.name;
+        return type!.name;
       }
     })();
 
@@ -58,7 +58,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
     case 'Page':
       class ResponsePageDataWrap extends BasePagination<T> {
         @ApiProperty({ type: wrapDataType, isArray: true })
-        records: T[];
+        declare records: T[];
       }
 
       wrapDataType = ResponsePageDataWrap;
@@ -68,7 +68,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
   // 添加 统一响应结构
   class BaseResponseWrap extends BaseResponse<T> {
     @ApiProperty({ type: wrapDataType })
-    data: T;
+    declare data: T;
   }
 
   defineSchemaName(BaseResponseWrap, options.type, options.struct);
