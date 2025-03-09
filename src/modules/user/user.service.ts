@@ -1,18 +1,20 @@
+import type {
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
+import type { UserQueryDto } from './dto/query.dto';
+import type { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { PageInfo } from '@/common/dto/pages.dto';
 import { CustomError } from '@/common/response/custom-error';
 import { Provide } from '@midwayjs/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import {
   Between,
-  FindOptionsWhere,
   In,
   LessThanOrEqual,
   Like,
   MoreThanOrEqual,
-  Repository,
 } from 'typeorm';
-import { UserQueryDto } from './dto/query.dto';
-import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserEntity } from './entity/user.entity';
 
 @Provide()
@@ -47,7 +49,8 @@ export class UserService {
     // 时间区间处理
     if (query.startTime && query.endTime) {
       whereValue.createdAt = Between(query.startTime, query.endTime);
-    } else {
+    }
+    else {
       if (query.startTime) {
         whereValue.createdAt = MoreThanOrEqual(query.startTime);
       }
@@ -95,7 +98,7 @@ export class UserService {
   async update(id: number, userUpdateDto: UserUpdateDto): Promise<boolean> {
     const record = await this.userEntityModel.findOne({
       where: {
-        id: id,
+        id,
       },
     });
     if (!record) {
@@ -105,7 +108,7 @@ export class UserService {
     // metadata信息局部更新，防止覆盖
     if (userUpdateDto.metadata) {
       record.metadata = { ...record.metadata, ...userUpdateDto.metadata };
-      // @ts-ignore
+      // @ts-expect-error:  metadata 属性不存在
       userUpdateDto.metadata = undefined;
     }
 
@@ -132,7 +135,7 @@ export class UserService {
   async details(id: number): Promise<UserEntity> {
     const record = await this.userEntityModel.findOne({
       where: {
-        id: id,
+        id,
       },
     });
     if (!record) {

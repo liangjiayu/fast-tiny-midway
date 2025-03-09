@@ -1,10 +1,10 @@
+import { join } from 'node:path';
 import { App, Configuration } from '@midwayjs/core';
 import * as info from '@midwayjs/info';
 import * as koa from '@midwayjs/koa';
 import * as swagger from '@midwayjs/swagger';
 import * as orm from '@midwayjs/typeorm';
 import * as validate from '@midwayjs/validate';
-import { join } from 'path';
 import { CustomErrorFilter } from './filter/custom.filter';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { NotFoundFilter } from './filter/notfound.filter';

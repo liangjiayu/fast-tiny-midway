@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const UserUpdateSchema = z
   .object({
     phoneNumber: z.string().regex(/^1[3-9]\d{9}$/, '手机号格式不正确'),
-    gender: z.number().refine((val) => [1, 2, 3].includes(val), {
+    gender: z.number().refine(val => [1, 2, 3].includes(val), {
       message: '性别编码不正确',
     }),
     nickname: z.string().min(2).max(20),

@@ -6,8 +6,8 @@ import { Catch } from '@midwayjs/core';
 @Catch(CustomError)
 export class CustomErrorFilter {
   async catch(err: CustomError) {
-    const code =
-      typeof err.code === 'string' ? Number(err?.code?.split('_')[1]) : ErrorCodeEnum.FAILED;
+    const code
+      = typeof err.code === 'string' ? Number(err?.code?.split('_')[1]) : ErrorCodeEnum.FAILED;
 
     return new BaseResult(code, err.message, null);
   }

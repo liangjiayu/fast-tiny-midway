@@ -1,4 +1,5 @@
-import { ApiProperty, ApiResponseMetadata, Type } from '@midwayjs/swagger';
+import type { ApiResponseMetadata, Type } from '@midwayjs/swagger';
+import { ApiProperty } from '@midwayjs/swagger';
 import { BasePagination, BaseResponse } from './base-response';
 
 type WrapResponseOptions = ApiResponseMetadata & {
@@ -9,7 +10,7 @@ type WrapResponseOptions = ApiResponseMetadata & {
 /**
  * 用于 Swagger文档 响应体定义，生成统一响应结构
  */
-export const wrapResponse = <T>(options?: WrapResponseOptions) => {
+export function wrapResponse<T>(options?: WrapResponseOptions) {
   // 默认返回 BaseResponse
   if (!options || !options.type) {
     return BaseResponse;
@@ -28,7 +29,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
     const typeName = ((): string => {
       if (typeof type === 'string') {
         return type;
-      } else if (type instanceof Array) {
+      } else if (Array.isArray(type)) {
         return type[0].name;
       } else {
         return type!.name;
@@ -75,4 +76,4 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
 
   defineSchemaName(BaseResponseWrap, options.type, options.struct);
   return BaseResponseWrap;
-};
+}

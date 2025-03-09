@@ -1,7 +1,8 @@
+import type { IMiddleware } from '@midwayjs/core';
+import type { Context, NextFunction } from '@midwayjs/koa';
 import { BaseResult } from '@/common/response/base-result';
 import { RESPONSE_SUCCESS_CODE, RESPONSE_SUCCESS_MESSAGE } from '@/constants';
-import { IMiddleware, Middleware } from '@midwayjs/core';
-import { Context, NextFunction } from '@midwayjs/koa';
+import { Middleware } from '@midwayjs/core';
 
 @Middleware()
 export class FormatMiddleware implements IMiddleware<Context, NextFunction> {

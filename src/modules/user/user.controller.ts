@@ -1,12 +1,12 @@
+import type { Context } from '@midwayjs/koa';
+import type { UserQueryDto } from './dto/query.dto';
+import type { UserCreateDto, UserUpdateDto } from './dto/user.dto';
+import type { UserService } from './user.service';
 import { wrapResponse } from '@/common/response/wrap-response';
 import { zodValidate } from '@/common/utils/zod.validate';
 import { Body, Controller, Get, Inject, Param, Post, Query } from '@midwayjs/core';
-import { Context } from '@midwayjs/koa';
 import { ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@midwayjs/swagger';
-import { UserQueryDto } from './dto/query.dto';
-import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserEntity } from './entity/user.entity';
-import { UserService } from './user.service';
 import { UserUpdateSchema } from './user.validate';
 
 @ApiTags('SysUsersTag')

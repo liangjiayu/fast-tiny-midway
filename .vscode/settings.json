@@ -1,9 +1,11 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode", // 默认格式化工具
-  "editor.formatOnSave": true, // 保存时自动格式化
+  // Disable the default formatter, use eslint instead
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+
+  // Auto fix
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit", // 自动修复所有 ESLint 错误
-    "source.organizeImports": "explicit", // 自动排序和移除未使用的导入
-    "source.sortImports": "explicit" // 自动排序导入
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
   }
 }

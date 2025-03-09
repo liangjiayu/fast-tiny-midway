@@ -1,4 +1,4 @@
-import { MidwayConfig } from '@midwayjs/core';
+import type { MidwayConfig } from '@midwayjs/core';
 
 export default {
   // use for cookie sign key, should change to your own and keep security
@@ -36,8 +36,8 @@ export default {
       // 根据接口的类型排序
       operationsSorter: (a: any, b: any) => {
         const methodOrder = ['post', 'get', 'put', 'delete'];
-        const methodA = a['_root']['entries'][1][1].toLowerCase(); // 获取接口的具体的 method类型（a）
-        const methodB = b['_root']['entries'][1][1].toLowerCase(); // 获取接口的具体的 method类型（b）
+        const methodA = a._root.entries[1][1].toLowerCase(); // 获取接口的具体的 method类型（a）
+        const methodB = b._root.entries[1][1].toLowerCase(); // 获取接口的具体的 method类型（b）
         return methodOrder.indexOf(methodA) - methodOrder.indexOf(methodB);
       },
     },
