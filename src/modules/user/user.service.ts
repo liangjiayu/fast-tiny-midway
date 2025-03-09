@@ -1,20 +1,18 @@
-import type {
-  FindOptionsWhere,
-  Repository,
-} from 'typeorm';
-import type { UserQueryDto } from './dto/query.dto';
-import type { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { PageInfo } from '@/common/dto/pages.dto';
 import { CustomError } from '@/common/response/custom-error';
 import { Provide } from '@midwayjs/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import {
   Between,
+  FindOptionsWhere,
   In,
   LessThanOrEqual,
   Like,
   MoreThanOrEqual,
+  Repository,
 } from 'typeorm';
+import { UserQueryDto } from './dto/query.dto';
+import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserEntity } from './entity/user.entity';
 
 @Provide()

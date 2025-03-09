@@ -1,6 +1,5 @@
-import type { MidwayHttpError } from '@midwayjs/core';
-import type { Context } from '@midwayjs/koa';
-import { Catch, httpError } from '@midwayjs/core';
+import { Catch, httpError, MidwayHttpError } from '@midwayjs/core';
+import { Context } from '@midwayjs/koa';
 
 @Catch(httpError.NotFoundError)
 export class NotFoundFilter {

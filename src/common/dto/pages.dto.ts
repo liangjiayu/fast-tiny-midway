@@ -10,14 +10,14 @@ export class BasePagesDto {
     default: 1,
   })
   @Rule(RuleType.number().min(1))
-  pageNum = 1;
+  pageNum: number = 1;
 
   @ApiProperty({
     description: '分页大小',
     default: 10,
   })
   @Rule(RuleType.number().min(1).max(200))
-  pageSize = 10;
+  pageSize: number = 10;
 }
 
 /**

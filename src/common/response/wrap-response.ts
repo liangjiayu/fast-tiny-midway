@@ -1,5 +1,4 @@
-import type { ApiResponseMetadata, Type } from '@midwayjs/swagger';
-import { ApiProperty } from '@midwayjs/swagger';
+import { ApiProperty, ApiResponseMetadata, Type } from '@midwayjs/swagger';
 import { BasePagination, BaseResponse } from './base-response';
 
 type WrapResponseOptions = ApiResponseMetadata & {

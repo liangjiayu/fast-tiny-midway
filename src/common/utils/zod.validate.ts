@@ -1,5 +1,5 @@
-import type { ZodType } from 'zod';
 import { MidwayValidationError } from '@midwayjs/validate';
+import { ZodType } from 'zod';
 
 /**
  * zod校验
