@@ -1,19 +1,19 @@
+import { PageInfo } from '@/common/dto/pages.dto';
+import { CustomError } from '@/common/response/custom-error';
 import { Provide } from '@midwayjs/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import {
+  Between,
   FindOptionsWhere,
-  Repository,
+  In,
+  LessThanOrEqual,
   Like,
   MoreThanOrEqual,
-  LessThanOrEqual,
-  Between,
-  In,
+  Repository,
 } from 'typeorm';
-import { UserEntity } from './entity/user.entity';
-import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserQueryDto } from './dto/query.dto';
-import { CustomError } from '@/common/response/custom-error';
-import { PageInfo } from '@/common/dto/pages.dto';
+import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
+import { UserEntity } from './entity/user.entity';
 
 @Provide()
 export class UserService {

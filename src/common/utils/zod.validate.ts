@@ -11,11 +11,7 @@ export function zodValidate(schema: ZodType, data: any) {
   if (!checkResult.success) {
     const firstError = checkResult.error.errors[0];
 
-    throw new MidwayValidationError(
-      `${firstError.path}: ${firstError.message}`,
-      422,
-      firstError
-    );
+    throw new MidwayValidationError(`${firstError.path}: ${firstError.message}`, 422, firstError);
   }
   return true;
 }

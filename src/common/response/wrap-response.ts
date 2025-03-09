@@ -1,5 +1,5 @@
 import { ApiProperty, ApiResponseMetadata, Type } from '@midwayjs/swagger';
-import { BaseResponse, BasePagination } from './base-response';
+import { BasePagination, BaseResponse } from './base-response';
 
 type WrapResponseOptions = ApiResponseMetadata & {
   type?: Type;
@@ -23,7 +23,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
   function defineSchemaName(
     o: any,
     type: WrapResponseOptions['type'],
-    struct?: WrapResponseOptions['struct']
+    struct?: WrapResponseOptions['struct'],
   ): void {
     const typeName = ((): string => {
       if (typeof type === 'string') {
@@ -46,6 +46,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
   switch (options.struct) {
     // 返回列表结构
     case 'List':
+      // eslint-disable-next-line no-case-declarations
       class ResponseListDataWrap {
         @ApiProperty({ type: wrapDataType, isArray: true })
         records: T[];
@@ -56,6 +57,7 @@ export const wrapResponse = <T>(options?: WrapResponseOptions) => {
 
     // 返回分页结构
     case 'Page':
+      // eslint-disable-next-line no-case-declarations
       class ResponsePageDataWrap extends BasePagination<T> {
         @ApiProperty({ type: wrapDataType, isArray: true })
         declare records: T[];

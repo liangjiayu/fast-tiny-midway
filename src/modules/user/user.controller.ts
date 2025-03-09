@@ -1,26 +1,13 @@
-import {
-  Inject,
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Query,
-} from '@midwayjs/core';
-import { Context } from '@midwayjs/koa';
-import { UserService } from './user.service';
-import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
-import {
-  ApiOperation,
-  ApiParam,
-  ApiTags,
-  ApiOkResponse,
-} from '@midwayjs/swagger';
-import { UserEntity } from './entity/user.entity';
-import { UserQueryDto } from './dto/query.dto';
 import { wrapResponse } from '@/common/response/wrap-response';
-import { UserUpdateSchema } from './user.validate';
 import { zodValidate } from '@/common/utils/zod.validate';
+import { Body, Controller, Get, Inject, Param, Post, Query } from '@midwayjs/core';
+import { Context } from '@midwayjs/koa';
+import { ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@midwayjs/swagger';
+import { UserQueryDto } from './dto/query.dto';
+import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
+import { UserEntity } from './entity/user.entity';
+import { UserService } from './user.service';
+import { UserUpdateSchema } from './user.validate';
 
 @ApiTags('SysUsersTag')
 @Controller('/api/sys_users')

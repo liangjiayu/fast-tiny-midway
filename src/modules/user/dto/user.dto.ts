@@ -11,7 +11,7 @@ export class UserCreateDto {
     RuleType.string()
       .required()
       .pattern(/^[A-Za-z0-9]{6,20}$/)
-      .message('用户名必须是6-20位字母或数字')
+      .message('用户名必须是6-20位字母或数字'),
   )
   username: string;
 
@@ -20,7 +20,7 @@ export class UserCreateDto {
     RuleType.string()
       .required()
       .pattern(/^[A-Za-z0-9]{6,20}$/)
-      .message('密码必须是6-20位字母或数字')
+      .message('密码必须是6-20位字母或数字'),
   )
   password: string;
 }

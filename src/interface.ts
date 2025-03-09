@@ -1,6 +1,7 @@
 /**
- * @description User-Service parameters
+ * 全局类型定义
  */
+
 export interface IUserOptions {
   uid: number;
 }
