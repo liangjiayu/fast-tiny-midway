@@ -3,6 +3,9 @@ import { CustomError } from '@/common/response/custom-error';
 import { ErrorCodeEnum } from '@/constants/error-code';
 import { Catch } from '@midwayjs/core';
 
+/**
+ * 自定义错误过滤器
+ */
 @Catch(CustomError)
 export class CustomErrorFilter {
   async catch(err: CustomError) {

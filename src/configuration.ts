@@ -7,7 +7,6 @@ import * as orm from '@midwayjs/typeorm';
 import * as validate from '@midwayjs/validate';
 import { CustomErrorFilter } from './filter/custom.filter';
 import { DefaultErrorFilter } from './filter/default.filter';
-import { NotFoundFilter } from './filter/notfound.filter';
 import { ValidateErrorFilter } from './filter/validate.filter';
 import { FormatMiddleware } from './middleware/format.middleware';
 
@@ -33,7 +32,6 @@ export class MainConfiguration {
     this.app.useMiddleware([FormatMiddleware]);
     // add filter
     this.app.useFilter([
-      NotFoundFilter,
       ValidateErrorFilter,
       CustomErrorFilter,
       DefaultErrorFilter,

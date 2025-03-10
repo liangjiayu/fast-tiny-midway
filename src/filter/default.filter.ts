@@ -2,6 +2,9 @@ import { BaseResult } from '@/common/response/base-result';
 import { ErrorCodeEnum } from '@/constants/error-code';
 import { Catch } from '@midwayjs/core';
 
+/**
+ * 全局错误过滤器
+ */
 @Catch()
 export class DefaultErrorFilter {
   async catch(err: Error) {

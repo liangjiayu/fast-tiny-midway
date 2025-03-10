@@ -49,7 +49,7 @@ export function wrapResponse<T>(options?: WrapResponseOptions) {
       // eslint-disable-next-line no-case-declarations
       class ResponseListDataWrap {
         @ApiProperty({ type: wrapDataType, isArray: true })
-        records: T[];
+        declare records: T[];
       }
 
       wrapDataType = ResponseListDataWrap;
