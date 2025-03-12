@@ -22,5 +22,7 @@ export default antfu({
     // 'unused-imports/no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
     'ts/consistent-type-imports': 'off',
+    'node/prefer-global/process': 'off',
+    'node/prefer-global/buffer': 'off',
   },
 });

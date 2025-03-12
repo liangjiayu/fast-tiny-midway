@@ -4,18 +4,19 @@ export default {
   // use for cookie sign key, should change to your own and keep security
   keys: '1740806677164_4665',
   koa: {
-    port: 7001,
+    port: 7200,
   },
+  /**
+   * 数据库配置
+   * @See https://midwayjs.org/docs/extensions/orm
+   */
   typeorm: {
     dataSource: {
       default: {
-        /**
-         * 单数据库实例
-         */
         type: 'mysql',
         host: 'localhost',
         port: 3306,
-        username: 'root',
+        username: 'fast_tiny_db',
         password: '123456789',
         database: 'fast_tiny_db',
         synchronize: false, // 同步表结构，生产环境建议关闭，数据可能会丢失。
@@ -27,6 +28,7 @@ export default {
     },
   },
   /**
+   * swagger-ui 配置
    * @See https://midwayjs.org/docs/extensions/swagger
    */
   swagger: {
@@ -42,7 +44,10 @@ export default {
       },
     },
   },
-
+  /**
+   * 参数验证 配置
+   * @See https://midwayjs.org/docs/extensions/validate
+   */
   validate: {
     validationOptions: {
       allowUnknown: true,
