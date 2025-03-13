@@ -2,6 +2,7 @@
   "name": "fast-tiny-midway",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.6.2",
   "description": "",
   "author": "anonymous",
   "license": "MIT",
@@ -10,18 +11,20 @@
     "url": ""
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
   },
   "scripts": {
+    "prepare": "husky",
     "build": "mwtsc --cleanOutDir",
     "ci": "npm run cov",
     "cov": "jest --coverage",
     "dev": "cross-env NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "start": "NODE_ENV=production node ./bootstrap.js",
-    "test": "cross-env NODE_ENV=unittest jest",
-    "prepare": "husky"
+    "start": "npm run dev",
+    "start:prod": "NODE_ENV=production node ./bootstrap.js",
+    "test": "cross-env NODE_ENV=unittest jest"
   },
   "dependencies": {
     "@midwayjs/bootstrap": "^3.12.0",
