@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+    image: fast-tiny-midway:latest
+    container_name: fast-tiny-midway
+    restart: unless-stopped
+    ports:
+      - '7200:7200'

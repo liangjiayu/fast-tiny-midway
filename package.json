@@ -26,7 +26,10 @@
     "test:cov": "jest --coverage",
     "prod": "cross-env NODE_ENV=production pm2-runtime start ecosystem.config.js",
     "prod:pm2": "cross-env NODE_ENV=production pm2 start ecosystem.config.js",
-    "prod:stop": "pm2 delete ecosystem.config.js && pm2 cleardump"
+    "prod:stop": "pm2 delete ecosystem.config.js && pm2 cleardump",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
   },
   "dependencies": {
     "@midwayjs/bootstrap": "^3.12.0",
