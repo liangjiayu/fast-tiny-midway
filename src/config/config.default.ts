@@ -4,7 +4,7 @@ export default {
   // use for cookie sign key, should change to your own and keep security
   keys: '1740806677164_4665',
   koa: {
-    port: 7200,
+    port: process.env.APP_PORT || 7200,
   },
   /**
    * 数据库配置

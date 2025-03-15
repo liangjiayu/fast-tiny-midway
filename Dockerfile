@@ -8,11 +8,11 @@ COPY . /app
 
 # 安装生产依赖
 FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --ignore-scripts
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --ignore-scripts --frozen-lockfile
 
 # 安装开发依赖和构建应用
 FROM base AS build
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
 
 # 最终镜像
@@ -27,4 +27,4 @@ COPY --from=build /app/dist /app/dist
 RUN apk add tzdata
 
 EXPOSE 7200
-CMD [ "pnpm", "prod" ]
+CMD [ "pnpm", "start:server" ]

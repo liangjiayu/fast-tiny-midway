@@ -5,10 +5,16 @@ import * as koa from '@midwayjs/koa';
 import * as swagger from '@midwayjs/swagger';
 import * as orm from '@midwayjs/typeorm';
 import * as validate from '@midwayjs/validate';
+import * as dotenv from 'dotenv';
 import { CustomErrorFilter } from './filter/custom.filter';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { ValidateErrorFilter } from './filter/validate.filter';
 import { FormatMiddleware } from './middleware/format.middleware';
+
+// 生产环境加载 .env 配置
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config();
+}
 
 @Configuration({
   imports: [
@@ -31,10 +37,12 @@ export class MainConfiguration {
   logger: ILogger;
 
   async onReady() {
-    console.log(this.app.getEnv());
-    console.log(process.env.HOME);
+    console.log('\x1B[36m%s\x1B[0m', `项目启动成功，运行环境为：${this.app.getEnv()}`);
 
-    this.logger.warn(`Application Environment: ${this.app.getEnv()}`);
+    if (process.env.APP_NAME) {
+      console.log('\x1B[36m%s\x1B[0m', `环境配置加载 .env 成功：${process.env.APP_NAME}`);
+    }
+
     // add middleware
     this.app.useMiddleware([FormatMiddleware]);
     // add filter
