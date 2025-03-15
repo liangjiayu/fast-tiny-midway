@@ -8,5 +8,8 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
-  "editor.defaultFormatter": null
+  "editor.defaultFormatter": null,
+  "cSpell.words": [
+    "midwayjs"
+  ]
 }

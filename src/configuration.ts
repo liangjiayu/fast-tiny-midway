@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { App, Configuration } from '@midwayjs/core';
+import { App, Configuration, ILogger, Logger } from '@midwayjs/core';
 import * as info from '@midwayjs/info';
 import * as koa from '@midwayjs/koa';
 import * as swagger from '@midwayjs/swagger';
@@ -27,7 +27,14 @@ export class MainConfiguration {
   @App('koa')
   app: koa.Application;
 
+  @Logger()
+  logger: ILogger;
+
   async onReady() {
+    console.log(this.app.getEnv());
+    console.log(process.env.HOME);
+
+    this.logger.warn(`Application Environment: ${this.app.getEnv()}`);
     // add middleware
     this.app.useMiddleware([FormatMiddleware]);
     // add filter

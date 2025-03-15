@@ -24,8 +24,7 @@ COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 
 # 设置时区
-RUN apk add --no-cache tzdata
-ENV TZ="Asia/Shanghai"
+RUN apk add tzdata
 
 EXPOSE 7200
 CMD [ "pnpm", "prod" ]

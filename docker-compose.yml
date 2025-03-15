@@ -2,8 +2,11 @@ services:
   app:
     build:
       context: .
-    image: fast-tiny-midway:latest
-    container_name: fast-tiny-midway
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    container_name: ${APP_NAME}
     restart: unless-stopped
     ports:
-      - '7200:7200'
+      - '${APP_PORT}:${APP_PORT}'
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - MIDWAY_SERVER_ENV=${MIDWAY_SERVER_ENV}
