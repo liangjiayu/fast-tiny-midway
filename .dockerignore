@@ -11,3 +11,6 @@ run/
 *.un~
 .tsbuildinfo
 .tsbuildinfo.*
+
+
+*.md
