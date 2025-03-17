@@ -12,5 +12,9 @@ run/
 .tsbuildinfo
 .tsbuildinfo.*
 
-
+# 源码中需要忽略的文件
 *.md
+test/
+.git/
+.github/
+.vscode/
