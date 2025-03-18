@@ -73,6 +73,8 @@ jobs:
           envs: IMAGE_NAME
           script: |
             cd /home/admin/fast-tiny-midway
+            ls -la  # 查看目录下文件列表
+            test -f .env || (echo ".env missing" && exit 1)
 
             docker-compose down || true
             docker-compose --env-file .env pull
