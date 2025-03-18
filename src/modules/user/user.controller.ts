@@ -19,7 +19,7 @@ export class UserController {
   userService: UserService;
 
   @Post('/create')
-  @ApiOperation({ summary: '创建用户,返回用户id' })
+  @ApiOperation({ summary: '创建用户,返回用户id123' })
   @ApiOkResponse({
     type: wrapResponse({ type: Number }),
   })
