@@ -77,5 +77,3 @@ jobs:
             test -f .env || (echo ".env missing" && exit 1)
 
             docker-compose down || true
-            docker-compose --env-file .env pull
-            docker-compose --env-file .env up -d
