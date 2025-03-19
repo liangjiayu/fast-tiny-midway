@@ -70,10 +70,11 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: IMAGE_NAME
           script: |
             cd /home/admin/fast-tiny-midway
             ls -la  # 查看目录下文件列表
             test -f .env || (echo ".env missing" && exit 1)
 
             docker-compose down || true
+            docker-compose pull
+            docker-compose up -d
