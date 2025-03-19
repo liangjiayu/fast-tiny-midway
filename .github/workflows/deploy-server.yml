@@ -50,6 +50,8 @@ jobs:
           context: .
           tags: ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.IMAGE_TAG }}
           push: true
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:cache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:cache,mode=max
 
   deploy:
     runs-on: ubuntu-latest
