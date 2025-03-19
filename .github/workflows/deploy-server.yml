@@ -29,12 +29,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # - name: Generate timestamp
-      #   id: set-tag
-      #   run: |
-      #     TAG=$(date +%Y%m%d%H%M)
-      #     echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
-      #     echo "IMAGE_TAG=$TAG" >> $GITHUB_ENV
+      - name: Generate timestamp
+        id: set-tag
+        run: |
+          TAG=$(date +%Y%m%d%H%M)
+          echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "IMAGE_TAG=$TAG" >> $GITHUB_ENV
 
       # - name: Set up JDK 17
       #   uses: actions/setup-java@v4
@@ -72,8 +72,12 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/admin/fast-tiny-midway
-            ls -la  # 查看目录下文件列表
-            test -f .env || (echo ".env missing" && exit 1)
+
+            # 生成临时环境文件
+            IMAGE_TAG="${{ needs.build.outputs.IMAGE_TAG }}"
+            IMAGE_NAME="${{ env.IMAGE_NAME }}"
+            echo "IMAGE_TAG=$IMAGE_TAG" > .env.override
+            echo "IMAGE_NAME=$IMAGE_NAME" >> .env.override
 
             docker-compose down || true
             docker-compose pull
