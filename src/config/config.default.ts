@@ -37,7 +37,7 @@ export default {
     displayOptions: {
       // 根据接口的类型排序
       operationsSorter: (a: any, b: any) => {
-        const methodOrder = ['post', 'get', 'put', 'delete'];
+        const methodOrder = ['post', 'put', 'get', 'delete'];
         const methodA = a._root.entries[1][1].toLowerCase(); // 获取接口的具体的 method类型（a）
         const methodB = b._root.entries[1][1].toLowerCase(); // 获取接口的具体的 method类型（b）
         return methodOrder.indexOf(methodA) - methodOrder.indexOf(methodB);

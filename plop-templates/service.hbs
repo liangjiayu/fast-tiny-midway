@@ -1,0 +1,89 @@
+import { PageInfo } from '@/common/dto/pages.dto';
+import { CustomError } from '@/common/response/custom-error';
+import { Provide } from '@midwayjs/core';
+import { InjectEntityModel } from '@midwayjs/typeorm';
+import {
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
+import { {{className}}Entity } from './{{moduleName}}.entity';
+
+@Provide()
+export class {{className}}Service {
+  @InjectEntityModel({{className}}Entity)
+  baseEntityModel: Repository<{{className}}Entity>;
+
+  /**
+   * 查询列表
+   */
+  async list(): Promise<PageInfo<{{className}}Entity>> {
+    const pageInfo = new PageInfo<{{className}}Entity>(1, 10);
+
+    const whereValue: FindOptionsWhere<{{className}}Entity> = {};
+
+    const [records, total] = await this.baseEntityModel.findAndCount({
+      skip: pageInfo.skip,
+      take: pageInfo.size,
+      where: whereValue,
+    });
+    pageInfo.total = total;
+    pageInfo.records = records;
+
+    return pageInfo;
+  }
+
+  /**
+   * 创建数据
+   */
+  async create(): Promise<number> {
+    const record = new {{className}}Entity();
+
+    await this.baseEntityModel.save(record);
+    return record.id;
+  }
+
+  /**
+   * 更新数据
+   */
+  async update(id: number): Promise<boolean> {
+    const record = await this.baseEntityModel.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!record) {
+      throw new CustomError('数据不存在!');
+    }
+
+    this.baseEntityModel.merge(record);
+
+    const result = await this.baseEntityModel.save(record);
+    return !!result;
+  }
+
+  /**
+   * 删除数据
+   */
+  async delete(id: number): Promise<boolean> {
+    const result = await this.baseEntityModel.softDelete(id);
+    if (result?.affected === 0) {
+      throw new CustomError('数据不存在!');
+    }
+    return true;
+  }
+
+  /**
+   * 查询详情
+   */
+  async details(id: number): Promise<{{className}}Entity> {
+    const record = await this.baseEntityModel.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!record) {
+      throw new CustomError('数据不存在!');
+    }
+    return record;
+  }
+}

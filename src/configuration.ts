@@ -37,10 +37,10 @@ export class MainConfiguration {
   logger: ILogger;
 
   async onReady() {
-    console.log('\x1B[36m%s\x1B[0m', `项目启动成功，运行环境为：${this.app.getEnv()}`);
+    console.warn('\x1B[36m%s\x1B[0m', `项目启动成功，运行环境为：${this.app.getEnv()}`);
 
     if (process.env.APP_NAME) {
-      console.log('\x1B[36m%s\x1B[0m', `环境配置加载 .env 成功：${process.env.APP_NAME}`);
+      console.warn('\x1B[36m%s\x1B[0m', `环境配置加载 .env 成功：${process.env.APP_NAME}`);
     }
 
     // add middleware
