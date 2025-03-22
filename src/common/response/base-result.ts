@@ -1,3 +1,6 @@
+/**
+ * 用于统一响应体
+ */
 export class BaseResult<T> {
   public code: number;
   public message: string;

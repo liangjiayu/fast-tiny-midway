@@ -1,6 +1,6 @@
 import { wrapResponse } from '@/common/response/wrap-response';
 import { zodValidate } from '@/common/utils/zod.validate';
-import { Body, Controller, Get, Inject, Param, Post, Query } from '@midwayjs/core';
+import { Body, Controller, Del, Get, Inject, Param, Post, Query } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@midwayjs/swagger';
 import { UserQueryDto } from './dto/query.dto';
@@ -9,7 +9,7 @@ import { UserEntity } from './entity/user.entity';
 import { UserService } from './user.service';
 import { UserUpdateSchema } from './user.validate';
 
-@ApiTags('SysUsersTag')
+@ApiTags('sys-users-tag')
 @Controller('/api/sys_users')
 export class UserController {
   @Inject()
@@ -50,7 +50,7 @@ export class UserController {
     return result;
   }
 
-  @Post('/delete/:id')
+  @Del('/delete/:id')
   @ApiOperation({ summary: '删除用户' })
   @ApiParam({ name: 'id', description: '用户id', type: Number })
   @ApiOkResponse({

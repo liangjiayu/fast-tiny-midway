@@ -1,6 +1,9 @@
 import { RESPONSE_SUCCESS_CODE, RESPONSE_SUCCESS_MESSAGE } from '@/constants';
 import { ApiProperty } from '@midwayjs/swagger';
 
+/**
+ * 用于swagger的分页响应体（只做类型定义）
+ */
 export class BasePagination<T> {
   @ApiProperty({ default: 1, description: '当前页码' })
   current: number;
@@ -15,6 +18,9 @@ export class BasePagination<T> {
   records: T[];
 }
 
+/**
+ * 用于swagger的统一响应体（只做类型定义）
+ */
 export class BaseResponse<T> {
   @ApiProperty({
     default: RESPONSE_SUCCESS_CODE,

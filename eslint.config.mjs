@@ -8,7 +8,6 @@ export default antfu({
   },
   typescript: true,
   vue: false,
-  javascript: false,
   // 忽略文件
   ignores: [
     '**/node_modules/**',
