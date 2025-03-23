@@ -92,10 +92,10 @@ module/
 ### 快速启动
 ```bash
 # 1. 克隆项目
-git clone https://github.com/your-project/fast-tiny-midway.git
+git clone https://github.com/liangjiayu/fast-tiny-midway.git
 cd fast-tiny-midway
 
-# 2. 安装依赖（使用 pnpm）
+# 2. 安装依赖
 pnpm install
 
 # 3. 启动开发服务
@@ -104,6 +104,94 @@ pnpm run dev
 # 4. 访问接口文档
 open http://localhost:7200/swagger-ui
 ```
+
+### 模块开发示例
+```bash
+# 使用 plop命令 一键生成模块CRUD代码
+pnpm plop
+
+? 请输入模块名称(英文名称,如 product-info ): product
+⠋ 请注意默认生成的实体类，默认字段有id、created_at、updated_at、deleted_at，请确认 product 表是否包含这些字段，否则请手动修改实体类！
+✔  ++ /src/modules/product/product.controller.ts
+✔  ++ /src/modules/product/product.entity.ts
+✔  ++ /src/modules/product/product.service.ts
+```
+
+#### 模板代码说明
+自动生成模块代码，并且可在swagger文档上查看接口。
+```bash
+src/modules/product/
+├── product.controller.ts    # 控制器层（路由入口）
+├── product.entity.ts       # 数据库实体类
+└── product.service.ts      # 服务层（业务逻辑）
+```
+
+控制器代码如下：
+```typescript
+@ApiTags('product-tag')
+@Controller('/api/product')
+export class ProductController {
+  @Inject()
+  ctx: Context;
+
+  @Inject()
+  baseService: ProductService;
+
+  @Post('/create')
+  @ApiOperation({ summary: '创建数据' })
+  @ApiOkResponse({
+    type: wrapResponse({ type: Number }),
+  })
+  async create() {
+    const result = await this.baseService.create();
+    return result;
+  }
+
+  @Get('/list')
+  @ApiOperation({ summary: '查询列表' })
+  @ApiOkResponse({
+    type: wrapResponse({ type: ProductEntity, struct: 'Page' }),
+  })
+  async list() {
+    const records = await this.baseService.list();
+    return records;
+  }
+
+  @Post('/update/:id')
+  @ApiOperation({ summary: '更新数据' })
+  @ApiOkResponse({
+    type: wrapResponse({ type: Boolean }),
+  })
+  async update(@Param('id') id: number) {
+    const result = await this.baseService.update(id);
+    return result;
+  }
+
+  @Del('/delete/:id')
+  @ApiOperation({ summary: '删除数据' })
+  @ApiOkResponse({
+    type: wrapResponse({ type: Boolean }),
+  })
+  async delete(@Param('id') id: number) {
+    const result = await this.baseService.delete(id);
+    return result;
+  }
+
+  @Get('/:id')
+  @ApiOperation({ summary: '获取详情' })
+  @ApiOkResponse({
+    type: wrapResponse({ type: ProductEntity }),
+  })
+  async details(@Param('id') id: number) {
+    const result = await this.baseService.details(id);
+    return result;
+  }
+}
+```
+
+## 一键部署
+
+## 其他说明
 
 ### 常用开发命令
 ```json
@@ -135,34 +223,3 @@ open http://localhost:7200/swagger-ui
   "plop": "生成代码模板"
 }
 ```
-
-### 模块开发示例
-```bash
-# 使用 plop命令一键生成模块雏形
-pnpm plop
-
-? 请输入模块名称(英文名称,如 product-info ): product
-⠋ 请注意默认生成的实体类，默认字段有id、created_at、updated_at、deleted_at，请确认 product 表是否包含这些字段，否则请手动修改实体类！
-✔  ++ /src/modules/product/product.controller.ts
-✔  ++ /src/modules/product/product.entity.ts
-✔  ++ /src/modules/product/product.service.ts
-```
-
-### 开发最佳实践
-1. 代码分层规范
-    ```bash
-    module/
-    ├── [module].controller.ts  # 请求处理层
-    ├── [module].entity.ts   # 数据库实体层
-    └── [module].service.ts     # 业务逻辑层
-    ```
-2. 统一响应格式
-3. 错误处理
-   ```typescript
-   // 使用 CustomError 抛出业务异常
-   throw new CustomError('数据不存在');
-   ```
-
-## 一键部署
-
-## 其他说明
