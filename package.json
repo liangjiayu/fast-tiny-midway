@@ -17,8 +17,8 @@
   "scripts": {
     "prepare": "husky",
     "plop": "plop",
-    "build": "mwtsc --cleanOutDir",
     "dev": "cross-env NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js",
+    "build": "mwtsc --cleanOutDir",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "start": "NODE_ENV=production node ./bootstrap.js",

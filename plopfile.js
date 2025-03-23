@@ -5,7 +5,7 @@ module.exports = function (plop) {
       {
         type: 'input',
         name: 'moduleName',
-        message: '请输入模块名称(英文名称,如product):',
+        message: '请输入模块名称(英文名称,如 product-info ):',
         filter: input => input.trim(),
         validate: (input) => {
           if (input && !/^[\w-]+$/.test(input)) {
@@ -25,6 +25,7 @@ module.exports = function (plop) {
       // 自动生成默认 tableName 逻辑
       const tableName = answers.moduleName
         .replace(/([a-z])([A-Z])/g, '$1_$2') // 驼峰转下划线
+        .replace(/-/g, '_') // 连字符转下划线
         .toLowerCase();
 
       console.warn(
