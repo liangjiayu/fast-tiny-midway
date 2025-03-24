@@ -18,76 +18,18 @@
 | 代码生成 |     Plop + Handlebars     |
 | 项目部署 |  Docker + Github-Actions  |
 
-## 项目结构
-
-### 根目录文件（重要文件）
-|        名称         |            说明             |
-| :-----------------: | :-------------------------: |
-|        .env         |      环境变量配置文件       |
-|     Dockerfile      |    Docker 容器化构建文件    |
-| docker-compose.yml  |    Docker 多容器编排配置    |
-| ecosystem.config.js |   PM2 进程管理器配置文件    |
-|   plop-templates/   |       代码生成器模板        |
-|  eslint.config.mjs  |     ESLint 代码规范配置     |
-|    bootstrap.js     |      应用启动入口文件       |
-| .github/workflows/  | GitHub Actions 持续集成配置 |
-
-### 核心代码目录
-```bash
-src/
-├── common/                 # 公共模块
-│   ├── dto/               # 数据传输对象定义
-│   ├── response/          # 统一响应格式处理
-│   └── utils/             # 通用工具函数
-├── config/                # 环境配置
-│   ├── config.*.ts        # 多环境配置文件
-├── constants/             # 常量定义
-├── controller/            # 路由控制器层
-├── filter/                # 异常过滤器
-├── middleware/            # 自定义中间件
-└── modules/               # 业务模块
-    ├── demo-article/      # 示例文章模块
-    └── user/              # 用户模块
-        ├── dto/           # 用户相关DTO
-        ├── entity/        # 数据库实体
-        └── *.validate.ts  # 自定义验证逻辑
-```
-
-### 模块化开发规范
-1. 分层结构
-```bash
-module/
-├── [module].controller.ts  # 请求处理层
-├── [module].entity.ts   # 数据库实体层
-└── [module].service.ts     # 业务逻辑层
-```
-
-2. DTO 规范
-   - *.dto.ts 文件存放接口入参校验定义
-   - 使用 joi注解 或 zod函数 定义校验规则
-
-3. 异常处理
-   - filter/ 目录包含全局异常处理器
-   - custom-error.ts 实现自定义错误类型
-
-### 环境配置策略
-|     配置文件      |   说明   |
-| :---------------: | :------: |
-| config.default.ts | 所有环境 |
-|  config.local.ts  | 本地开发 |
-|  config.prod.ts   | 生产环境 |
-|  config.daily.ts  | 日常环境 |
-
 ## 本地开发
 
 ### 环境准备
-|      名称      | 版本要求 |
-| :------------: | :------: |
-|    Node.js     |  >=22.0  |
-|      pnpm      |  >=10.0  |
-|     MySQL      |  >=8.0   |
-| Docker（可选） |  >=26.0  |
-|  PM2（可选）   |  >=5.0   |
+|      名称      |                      安装方式                      |    验证命令     |
+| :------------: | :------------------------------------------------: | :-------------: |
+|    Node.js     |        [官方地址](https://nodejs.org/zh-cn)        |    `node -v`    |
+|      pnpm      |            [官方地址](https://pnpm.io/)            |    `pnpm -v`    |
+|     MySQL      | [官方地址](https://dev.mysql.com/downloads/mysql/) |        -        |
+| Docker（可选） |        [官方地址](https://www.docker.com/)         |   `docker -v`   |
+|  PM2（可选）   |                `npm install -g pm2`                | `pm2 --version` |
+
+**数据库初始化需要执行[导入脚本](./docs/fast_tiny_db.sql)，创建用户表和示例表，并且插入示例数据。**
 
 ### 快速启动
 ```bash
@@ -189,37 +131,60 @@ export class ProductController {
 }
 ```
 
+## 项目结构
+
+### 根目录文件（重点文件）
+|        名称         |            说明             |
+| :-----------------: | :-------------------------: |
+|        .env         |      环境变量配置文件       |
+|     Dockerfile      |    Docker 容器化构建文件    |
+| docker-compose.yml  |    Docker 多容器编排配置    |
+| ecosystem.config.js |   PM2 进程管理器配置文件    |
+|   plop-templates/   |       代码生成器模板        |
+|  eslint.config.mjs  |     ESLint 代码规范配置     |
+|    bootstrap.js     |      应用启动入口文件       |
+| .github/workflows/  | GitHub Actions 持续集成配置 |
+
+### 核心代码目录
+```bash
+├── src/
+│   ├── common/
+│   │   ├── dto/               # 公共数据传输对象
+│   │   ├── response/          # 统一响应格式
+│   │   └── utils/             # 工具函数
+│   ├── config/
+│   │   ├── config.default.ts  # 所有环境基础配置
+│   │   ├── config.local.ts    # 本地开发配置
+│   │   ├── config.prod.ts     # 生产环境配置
+│   │   └── config.daily.ts    # 日常环境配置
+│   ├── constants/             # 全局常量
+│   ├── controller/            # 全局控制器
+│   ├── filter/                # 异常过滤器
+│   ├── middleware/            # 中间件
+│   └── modules/
+│       └── module/      # 文章模块
+│           ├── [module].controller.ts  # 模块控制器层
+│           ├── [module].entity.ts      # 模块数据库实体层
+│           └── [module].service.ts     # 模块业务逻辑层
+└── (其他根目录文件)
+```
+
+### 常用开发命令
+|     命令     |                 说明                 |
+| :----------: | :----------------------------------: |
+|     plop     |     启动代码生成器，快速创建模块     |
+|     dev      |   启动本地开发服务器，监听文件变化   | 、 |
+|    build     |   编译TypeScript，打包生产环境文件   |
+|     lint     |       执行 ESLint 代码规范检查       |
+|   lint:fix   |     自动修复 ESLint 可修复的错误     |
+|    start     |     直接以生产模式启动 Node 服务     |
+| start:server | 使用 PM2-Runtime启动服务（容器专用） |
+|  pm2:start   |          通过 PM2 启动服务           |
+|   pm2:stop   |       停止 PM2 服务并清理日志        |
+| docker:build |   根据 docker-compose.yml 构建镜像   |
+|  docker:up   |           启动所有容器服务           |
+| docker:down  |          停止并移除所有容器          |
+
 ## 一键部署
 
 ## 其他说明
-
-### 常用开发命令
-```json
-{
-  // 开发
-  "dev": "启动开发模式，热更新",
-
-  // 质量
-  "lint": "静态代码检查",
-  "lint:fix": "自动修复代码规范问题",
-
-  // 构建
-  "build": "生产环境构建",
-
-  // 服务器启动
-  "start": "生产环境启动",
-  "start:serve": "Docker 容器环境启动服务",
-
-  // PM2
-  "pm2:start": "[PM2] 常规启动",
-  "pm2:stop": "[PM2] 停止服务",
-
-  // Docker
-  "docker:build": "[Docker] 镜像构建",
-  "docker:up": "[Docker] 启动服务",
-  "docker:down": "[Docker] 停止服务",
-
-  // 其他
-  "plop": "生成代码模板"
-}
-```
