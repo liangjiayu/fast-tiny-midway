@@ -30,6 +30,7 @@
 |  PM2（可选）   |                `npm install -g pm2`                | `pm2 --version` |
 
 **数据库初始化需要执行[导入脚本](./docs/fast_tiny_db.sql)，创建用户表和示例表，并且插入示例数据。**
+**注意： 本地开发和生产环境部署需要修改数据库配置，文件位于[默认配置](./src/config/config.default.ts)、[生产配置](./src/config/config.prod.ts)。**
 
 ### 快速启动
 ```bash
