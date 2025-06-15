@@ -21,15 +21,16 @@
 ## 本地开发
 
 ### 环境准备
-|      名称      |                      安装方式                      |    验证命令     |
-| :------------: | :------------------------------------------------: | :-------------: |
-|    Node.js     |        [官方地址](https://nodejs.org/zh-cn)        |    `node -v`    |
-|      pnpm      |            [官方地址](https://pnpm.io/)            |    `pnpm -v`    |
-|     MySQL      | [官方地址](https://dev.mysql.com/downloads/mysql/) |        -        |
-| Docker（可选） |        [官方地址](https://www.docker.com/)         |   `docker -v`   |
-|  PM2（可选）   |                `npm install -g pm2`                | `pm2 --version` |
+|      名称      |                      安装方式                      |    验证命令     |     版本      |
+| :------------: | :------------------------------------------------: | :-------------: | :-----------: |
+|    Node.js     |        [官方地址](https://nodejs.org/zh-cn)        |    `node -v`    | `>=22.0.0` ｜ |
+|      pnpm      |            [官方地址](https://pnpm.io/)            |    `pnpm -v`    |  `>=10.0.0`   |
+|     MySQL      | [官方地址](https://dev.mysql.com/downloads/mysql/) |        -        |   `>=8.0.0`   |
+| Docker（可选） |        [官方地址](https://www.docker.com/)         |   `docker -v`   |  `>=26.0.0`   |
+|  PM2（可选）   |                `npm install -g pm2`                | `pm2 --version` |       -       |
 
 **数据库初始化需要执行[导入脚本](./docs/fast_tiny_db.sql)，创建用户表和示例表，并且插入示例数据。**
+
 **注意： 本地开发和生产环境部署需要修改数据库配置，文件位于[默认配置](./src/config/config.default.ts)、[生产配置](./src/config/config.prod.ts)。**
 
 ### 快速启动
@@ -187,5 +188,35 @@ export class ProductController {
 | docker:down  |          停止并移除所有容器          |
 
 ## 一键部署
+根据项目情况，选择适合的部署方式，以下是基于 GitHub Actions 的持续集成部署。
+
+```mermaid
+flowchart TD
+    A[触发工作流] --> B[构建阶段]
+    B --> C[Checkout代码]
+    C --> D[生成时间戳标签]
+    D --> E[登录镜像仓库]
+    E --> F[构建并推送镜像]
+    F --> G[部署阶段]
+    G --> H[SSH连接服务器]
+    H --> I[生成覆盖配置]
+    I --> J[停止旧容器]
+    J --> K[启动新容器]
+```
+
+#### GitHub Secrets 配置
+在仓库的 `Settings -> Secrets -> Actions` 中添加以下密钥：
+
+| Secret 名称        | 作用说明                                            |
+| :----------------- | --------------------------------------------------- |
+| SERVER_HOST        | 部署服务器的公网 IP                                 |
+| SSH_USERNAME       | 登录服务器的 SSH 用户名，默认为 root                |
+| SSH_PRIVATE_KEY    | 用于 SSH 登录服务器的私钥内容（需与服务器公钥配对） |
+| DOCKERHUB_USERNAME | Docker Hub 账号用户名                               |
+| DOCKERHUB_TOKEN    | Docker Hub 的访问令牌                               |
+
+#### 服务器环境
+- 确保服务器已安装 Docker 和 Docker Compose。
+- 在服务器上创建项目目录（例如 `/home/admin/fast-tiny-app`），并上传 `docker-compose.yml`、`.env`和`.env.override`文件，具体可参考项目。
 
 ## 其他说明

@@ -2,15 +2,6 @@ name: Deploy to Server
 
 on:
   workflow_dispatch:
-    inputs:
-      envTag:
-        description: 选择部署环境
-        required: true
-        default: daily
-        type: choice
-        options:
-          - daily
-          - prod
 
 env:
   REGISTRY: docker.io

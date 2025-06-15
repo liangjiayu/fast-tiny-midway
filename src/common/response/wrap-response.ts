@@ -2,7 +2,9 @@ import { ApiProperty, ApiResponseMetadata, Type } from '@midwayjs/swagger';
 import { BasePagination, BaseResponse } from './base-response';
 
 type WrapResponseOptions = ApiResponseMetadata & {
+  /** 响应体的类型，可为实体、基础类型（数字、布尔、字符串） */
   type?: Type;
+  /** 响应体数据结构，数组类型，分页类型 */
   struct?: 'List' | 'Page';
 };
 
