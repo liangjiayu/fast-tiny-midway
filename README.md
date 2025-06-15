@@ -21,13 +21,13 @@
 ## 本地开发
 
 ### 环境准备
-|      名称      |                      安装方式                      |    验证命令     |     版本      |
-| :------------: | :------------------------------------------------: | :-------------: | :-----------: |
-|    Node.js     |        [官方地址](https://nodejs.org/zh-cn)        |    `node -v`    | `>=22.0.0` ｜ |
-|      pnpm      |            [官方地址](https://pnpm.io/)            |    `pnpm -v`    |  `>=10.0.0`   |
-|     MySQL      | [官方地址](https://dev.mysql.com/downloads/mysql/) |        -        |   `>=8.0.0`   |
-| Docker（可选） |        [官方地址](https://www.docker.com/)         |   `docker -v`   |  `>=26.0.0`   |
-|  PM2（可选）   |                `npm install -g pm2`                | `pm2 --version` |       -       |
+|      名称      |                      安装方式                      |    验证命令     |    版本    |
+| :------------: | :------------------------------------------------: | :-------------: | :--------: |
+|    Node.js     |        [官方地址](https://nodejs.org/zh-cn)        |    `node -v`    | `>=22.0.0` |
+|      pnpm      |            [官方地址](https://pnpm.io/)            |    `pnpm -v`    | `>=10.0.0` |
+|     MySQL      | [官方地址](https://dev.mysql.com/downloads/mysql/) |        -        | `>=8.0.0`  |
+| Docker（可选） |        [官方地址](https://www.docker.com/)         |   `docker -v`   | `>=26.0.0` |
+|  PM2（可选）   |                `npm install -g pm2`                | `pm2 --version` |     -      |
 
 **数据库初始化需要执行[导入脚本](./docs/fast_tiny_db.sql)，创建用户表和示例表，并且插入示例数据。**
 
@@ -36,7 +36,7 @@
 ### 快速启动
 ```bash
 # 1. 克隆项目
-git clone https://github.com/liangjiayu/fast-tiny-midway.git
+git clone --depth 1 https://github.com/liangjiayu/fast-tiny-midway.git
 cd fast-tiny-midway
 
 # 2. 安装依赖
@@ -217,6 +217,4 @@ flowchart TD
 
 #### 服务器环境
 - 确保服务器已安装 Docker 和 Docker Compose。
-- 在服务器上创建项目目录（例如 `/home/admin/fast-tiny-app`），并上传 `docker-compose.yml`、`.env`和`.env.override`文件，具体可参考项目。
-
-## 其他说明
+- 在服务器上创建项目目录（例如 `/home/admin/fast-tiny-midway`），并上传 `docker-compose.yml`、`.env`和`.env.override`文件，具体可参考项目。
