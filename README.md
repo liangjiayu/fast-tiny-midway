@@ -219,3 +219,7 @@ flowchart TD
 #### 服务器环境
 - 确保服务器已安装 Docker 和 Docker Compose。
 - 在服务器上创建项目目录（例如 `/home/admin/fast-tiny-midway`），并上传 `docker-compose.yml`、`.env`和`.env.override`文件，具体可参考项目。
+
+#### 服务器环境隔离
+- 每一台机器有独立的`.env`配置，通过`MIDWAY_SERVER_ENV`变量做隔离，如：`MIDWAY_SERVER_ENV=daily`，`MIDWAY_SERVER_ENV=prod`。
+- 其中`daily`对应配置文件在`/config/config.daily.ts`，`prod`对应配置文件在`/config/config.prod.ts`。
